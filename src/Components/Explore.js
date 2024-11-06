@@ -2,6 +2,9 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../utils/firebaseconfig";
 import ExploreHeader from "./ExploreHeader";
+import useAxiosPlayingMovies from "../hooks/useAxiosPlayingMovies";
+import HeroSection from "./HeroSection";
+import ListOfMoviesSection from "./ListMoviesSection";
 
 const Explore = () => {
   const navigate = useNavigate();
@@ -16,12 +19,15 @@ const Explore = () => {
     return () => unsubscribe();
   }, [navigate]);
 
+  useAxiosPlayingMovies();
+
   return (
-    <div>
+    <div className="bg-black min-h-screen">
       <ExploreHeader />
-      <div className="content">
-        <h1>Welcome to the Explore Page!</h1>
-      </div>
+      <main className="relative">
+        <HeroSection />
+        <ListOfMoviesSection />
+      </main>
     </div>
   );
 };

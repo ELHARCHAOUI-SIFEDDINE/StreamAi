@@ -6,11 +6,13 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "../utils/firebaseconfig";
+import NetflixFancySpinner from "./NetflixFancySpinner ";
 
 const SignUp = () => {
   const [isSignedIn, setIsSignedIn] = useState(true);
   const [error, setError] = useState(null);
-  const navigate = useNavigate(); // Initialize navigate
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const toggleSignInForm = () => {
     setIsSignedIn(!isSignedIn);
@@ -26,7 +28,6 @@ const SignUp = () => {
     const passwordValue = password.current.value;
 
     if (!isSignedIn) {
-      // Sign-up form validation
       const error = formValidate(
         fullName.current.value,
         emailValue,
@@ -36,29 +37,33 @@ const SignUp = () => {
       if (error) return;
 
       try {
-        // Sign-up with Firebase
+        setIsLoading(true);
         const userCredential = await createUserWithEmailAndPassword(
           auth,
           emailValue,
           passwordValue
         );
         console.log("User signed up successfully:", userCredential.user);
-        navigate("/explore"); // Redirect to Explore page
+        navigate("/explore");
       } catch (error) {
         handleFirebaseError(error);
+      } finally {
+        setIsLoading(false);
       }
     } else {
-      // Sign-in logic
       try {
+        setIsLoading(true);
         const userCredential = await signInWithEmailAndPassword(
           auth,
           emailValue,
           passwordValue
         );
         console.log("User signed in successfully:", userCredential.user);
-        navigate("/explore"); // Redirect to Explore page
+        navigate("/explore");
       } catch (error) {
         handleFirebaseError(error);
+      } finally {
+        setIsLoading(false);
       }
     }
   };
@@ -90,6 +95,8 @@ const SignUp = () => {
 
   return (
     <div className="relative min-h-screen w-full bg-black">
+      {isLoading && <NetflixFancySpinner />}
+
       <div className="absolute inset-0">
         <img
           src="https://assets.nflxext.com/ffe/siteui/vlv3/74d734ca-0eab-4cd9-871f-bca01823d872/web/MA-fr-20241021-TRIFECTA-perspective_159f0306-74e1-4234-aff1-c6bce946fe2a_large.jpg"
@@ -100,7 +107,7 @@ const SignUp = () => {
       </div>
 
       <div className="relative min-h-screen flex flex-col">
-        <div className="px-8 py-5 bg-gradient-to-b from-black/50">
+        <div className="px-8 ml-8 py-5 bg-gradient-to-b from-black/50">
           <img
             src="https://cdn.cookielaw.org/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png"
             alt="Logo"
@@ -113,7 +120,7 @@ const SignUp = () => {
             onSubmit={(e) => e.preventDefault()}
             className="w-full max-w-[450px] bg-black/80 p-16 rounded-lg shadow-2xl"
           >
-            <h1 className="text-white text-3xl font-semibold mb-8">
+            <h1 className="text-white text-3xl font-semibold mb-8 ml-2">
               {isSignedIn ? "Sign In" : "Sign Up"}
             </h1>
 
@@ -155,6 +162,7 @@ const SignUp = () => {
             <button
               className="w-full h-[50px] bg-[#e50914] text-white rounded font-semibold hover:bg-[#f6121d] transition-colors duration-200 mt-4 mb-3 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 focus:ring-offset-black"
               onClick={handleButtonClick}
+              disabled={isLoading}
             >
               {isSignedIn ? "Sign In" : "Sign Up"}
             </button>

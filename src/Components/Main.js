@@ -1,9 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import { RouterProvider, Navigate } from "react-router-dom";
-import { AuthProvider, useAuth } from "../context/AuthContext"; // Import AuthProvider
+import { AuthProvider, useAuth } from "../context/AuthContext";
 import Explore from "./Explore";
 import SignUp from "./SignUp";
-import ExploreHeader from "./ExploreHeader";
 
 const RequireAuth = ({ children }) => {
   const { user } = useAuth();

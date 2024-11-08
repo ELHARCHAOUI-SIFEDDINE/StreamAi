@@ -5,7 +5,9 @@ import ExploreHeader from "./ExploreHeader";
 import useAxiosPlayingMovies from "../hooks/useAxiosPlayingMovies";
 import HeroSection from "./HeroSection";
 import ListOfMoviesSection from "./ListMoviesSection";
-
+import usePopularMovies from "../hooks/useAxiosePopularMovies";
+import useTopRatedMovies from "../hooks/useAxiosTopRatedMovies";
+import useUpcomingMovies from "../hooks/useAxiosUpcomingMovies";
 const Explore = () => {
   const navigate = useNavigate();
 
@@ -20,6 +22,9 @@ const Explore = () => {
   }, [navigate]);
 
   useAxiosPlayingMovies();
+  usePopularMovies();
+  useTopRatedMovies();
+  useUpcomingMovies();
 
   return (
     <div className="bg-black min-h-screen">

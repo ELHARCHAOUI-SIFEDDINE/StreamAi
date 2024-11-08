@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { userpic, logo } from "../utils/constants";
 import { BellIcon, SearchIcon, ChevronDown, LogOut } from "lucide-react";
 import { auth } from "../utils/firebaseconfig";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { signOut } from "firebase/auth";
 
 const ExploreHeader = () => {
@@ -30,36 +30,9 @@ const ExploreHeader = () => {
     <header className="fixed top-0 left-0 w-full bg-gradient-to-b from-black via-black to-transparent z-10">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <div className="flex items-center space-x-8">
-          <img className="w-28 md:w-36" src={logo} alt="Logo" />
-          <nav>
-            <ul className="hidden md:flex space-x-4 text-white">
-              <li>
-                <a href="#" className="hover:text-gray-300">
-                  Home
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-gray-300">
-                  TV Shows
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-gray-300">
-                  Movies
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-gray-300">
-                  New & Popular
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-gray-300">
-                  My List
-                </a>
-              </li>
-            </ul>
-          </nav>
+          <Link to="/explore">
+            <img className="w-28 md:w-36" src={logo} alt="Logo" />
+          </Link>
         </div>
         <div className="flex items-center space-x-4">
           <SearchIcon className="text-white w-6 h-6 cursor-pointer" />

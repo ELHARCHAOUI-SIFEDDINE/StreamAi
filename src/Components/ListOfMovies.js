@@ -44,13 +44,14 @@ const ListOfMovies = ({ title, movies }) => {
     }
   };
 
+  if (!movies) return null;
+
   return (
     <div className="relative px-6">
       <h1 className="text-2xl ml-2 md:text-xl font-bold text-white mb-6">
         {title}
       </h1>
 
-      {/* Left Arrow */}
       {showLeftArrow && (
         <button
           onClick={() => scroll("left")}
@@ -61,7 +62,6 @@ const ListOfMovies = ({ title, movies }) => {
         </button>
       )}
 
-      {/* Right Arrow */}
       {showRightArrow && (
         <button
           onClick={() => scroll("right")}
@@ -72,15 +72,19 @@ const ListOfMovies = ({ title, movies }) => {
         </button>
       )}
 
-      {/* Movie List Container */}
       <div className="overflow-hidden">
         <div
           ref={scrollContainerRef}
           className="flex overflow-x-scroll hide-scrollbar scroll-smooth"
         >
           <div className="flex space-x-4 px-4">
-            {movies?.map((movie) => (
-              <CardMovie key={movie.id} posterPath={movie.poster_path} />
+            {movies.map((movie) => (
+              <CardMovie
+                key={movie.id}
+                id={movie.id}
+                title={movie.title}
+                posterPath={movie.poster_path}
+              />
             ))}
           </div>
         </div>

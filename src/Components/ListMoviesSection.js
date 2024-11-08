@@ -8,13 +8,9 @@ const ListOfMoviesSection = () => {
     <div className="relative z-20 mt-[-150px]">
       <div className="px-8 space-y-8">
         <ListOfMovies title="Now Playing" movies={movies.nowPlayingMovies} />
-        <ListOfMovies title="Trending" movies={movies.nowPlayingMovies} />
-        <ListOfMovies title="Popular" movies={movies.nowPlayingMovies} />
-        <ListOfMovies
-          title="Upcoming Movies"
-          movies={movies.nowPlayingMovies}
-        />
-        <ListOfMovies title="Horror" movies={movies.nowPlayingMovies} />
+        <ListOfMovies title="Top Rated" movies={movies.topratedmovies} />
+        <ListOfMovies title="Popular" movies={movies.popularMovies} />
+        <ListOfMovies title="Upcoming Movies" movies={movies.upcomingmovies} />
       </div>
     </div>
   );
